@@ -4,32 +4,39 @@ RSpec.describe 'reject pattern' do
     numbers = [2, 93, 7, 0, 0, 1, 0, 31, 0, 368]
     filtered = []
     numbers.each do |number|
-      filtered << number unless number.zero?
+      filtered << number unless number == 0
     end
     expect(filtered).to eq([2, 93, 7, 1, 31, 368])
   end
 
-  xit 'removes vowels' do
+  it 'removes vowels' do
     letters = ["a", "l", "l", " ", "y", "o", "u", "r", " ", "b", "a", "s", "e", " ", "a", "r", "e", " ", "b", "e", "l", "o", "n", "g", " ", "t", "o", " ", "u", "s"]
     remaining = []
     letters.each do |letter|
       # Your code goes here
+      remaining << letter unless letter == "a" || letter == "e" || letter == "i" || letter == "o" || letter == "u" || letter == "y"
     end
     expect(remaining).to eq(["l", "l", " ", "r", " ", "b", "s", " ", "r", " ", "b", "l", "n", "g", " ", "t", " ", "s"])
   end
 
-  xit 'removes numbers divisible by 3' do
+  it 'removes numbers divisible by 3' do
     numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
     remaining = []
     # Your code goes here
+    numbers.each do |number|
+      remaining << number unless number % 3 == 0
+    end
     expect(remaining).to eq([1, 2, 4, 5, 7, 8, 10, 11, 13, 14, 16, 17, 19, 20])
   end
 
-  xit 'removes words longer than 3 letters' do
-    skip
+  it 'removes words longer than 3 letters' do
     words = ["pill", "bad", "finger", "cat", "blue", "dog", "table", "red"]
     # Your code goes here
-    expected(selected).to eq(["bad", "cat", "dog", "red"])
+    selected = []
+    words.each do |word|
+      selected << word unless word.length > 3
+    end
+    expect(selected).to eq(["bad", "cat", "dog", "red"])
   end
 
   xit 'removes words ending in e' do
@@ -59,7 +66,7 @@ RSpec.describe 'reject pattern' do
   xit 'removes numbers' do
     elements = ["cat", "dog", 23, 81.1, 56, "aimless", 43]
     # Your code goes here
-    expected(not_numbers).to eq(["cat", "dog", "aimless"])
+    expect(not_numbers).to eq(["cat", "dog", "aimless"])
   end
 
   xit 'removes floats' do
@@ -83,7 +90,7 @@ RSpec.describe 'reject pattern' do
   xit 'removes arrays' do
     elements = ["CAT", ["dog"], 23, [56, 3, 8], "AIMLESS", 43, "butter"]
     # Your code goes here
-    expected(remaining).to eq(["CAT", 23, "AIMLESS", 43, "butter"])
+    expect(remaining).to eq(["CAT", 23, "AIMLESS", 43, "butter"])
   end
 
   xit 'removes hashes' do
