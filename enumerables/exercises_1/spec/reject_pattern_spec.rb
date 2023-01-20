@@ -39,63 +39,103 @@ RSpec.describe 'reject pattern' do
     expect(selected).to eq(["bad", "cat", "dog", "red"])
   end
 
-  xit 'removes words ending in e' do
+  it 'removes words ending in e' do
     words = ["are", "you", "strike", "thinking", "belt", "piece", "warble", "sing", "pipe"]
     # Your code goes here
-    expected(selected).to eq(["you", "thinking", "belt", "sing"])
+    selected = []
+    words.each do |word|
+      selected << word unless word.end_with? "e"
+    end
+    expect(selected).to eq(["you", "thinking", "belt", "sing"])
   end
 
-  xit 'removes words ending in ing' do
+  it 'removes words ending in ing' do
     words = ["bring", "finger", "drought", "singing", "bingo", "purposeful"]
     # Your code goes here
+    selected = []
+    words.each do |word|
+      selected << word unless word.end_with? "ing"
+    end
     expect(selected).to eq(["finger", "drought", "bingo", "purposeful"])
   end
 
-  xit 'removes words containing e' do
+  it 'removes words containing e' do
     words = ["four", "red", "five", "blue", "pizza", "purple"]
     # Your code goes here
+    selected = []
+    words.each do |word|
+      selected << word unless word.include? "e"
+    end
     expect(selected).to eq(["four", "pizza"])
   end
 
-  xit 'removes dinosaurs' do
+  it 'removes dinosaurs' do
     animals = ["tyrannosaurus", "narwhal", "eel", "achillesaurus", "qingxiusaurus"]
     # Your code goes here
+    notasaurus = []
+    animals.each do |animal|
+      notasaurus << animal unless animal.include? "saurus"
+    end
     expect(notasaurus).to eq(["narwhal", "eel"])
   end
 
-  xit 'removes numbers' do
+  it 'removes numbers' do
     elements = ["cat", "dog", 23, 81.1, 56, "aimless", 43]
     # Your code goes here
+    not_numbers = []
+    elements.each do |element|
+      not_numbers << element unless element.is_a?(Integer) || element.is_a?(Float)
+    end
     expect(not_numbers).to eq(["cat", "dog", "aimless"])
   end
 
-  xit 'removes floats' do
+  it 'removes floats' do
     elements = ["cat", "dog", 32.333, 23, 56, "aimless", 43.2]
     # Your code goes here
+    not_numbers = []
+    elements.each do |element|
+      not_numbers << element unless element.is_a?(Float)
+    end
     expect(not_numbers).to eq(["cat", "dog", 23, 56, "aimless"])
   end
 
-  xit 'removes animals starting with vowels' do
+  it 'removes animals starting with vowels' do
     animals = ["aardvark", "bonobo", "cat", "dog", "elephant"]
     # Your code goes here
+    remaining = []
+    animals.each do |animal|
+      remaining << animal unless animal.start_with?("a", "e", "i", "o", "u", "y")
+    end
     expect(remaining).to eq(["bonobo", "cat", "dog"])
   end
 
-  xit 'removes upcased words' do
+  it 'removes upcased words' do
     words = ["CAT", "dog", "AIMLESS", "Trevor", "butter"]
     # Your code goes here
+    remaining = []
+    words.each do |word|
+      remaining << word unless word == word.upcase
+    end
     expect(remaining).to eq(["dog", "Trevor", "butter"])
   end
 
-  xit 'removes arrays' do
+  it 'removes arrays' do
     elements = ["CAT", ["dog"], 23, [56, 3, 8], "AIMLESS", 43, "butter"]
     # Your code goes here
+    remaining = []
+    elements.each do |element|
+      remaining << element unless element.is_a?(Array)
+    end
     expect(remaining).to eq(["CAT", 23, "AIMLESS", 43, "butter"])
   end
 
-  xit 'removes hashes' do
+  it 'removes hashes' do
     elements = ["cat", {:dog=>"fido"}, 23, {:stuff=>"things"}, "aimless", 43]
     # Your code goes here
+    remaining = []
+    elements.each do |element|
+      remaining << element unless element.is_a?(Hash)
+    end
     expect(remaining).to eq(["cat", 23, "aimless", 43])
   end
 end
