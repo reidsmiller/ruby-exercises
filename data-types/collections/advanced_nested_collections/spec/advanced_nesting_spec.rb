@@ -117,7 +117,8 @@ RSpec.describe 'Advanced Nested Collections' do
     # 2. Return value of each dish into array
     # 3. Combine both arrays into a hash
 
-    dish_names = stores[:olive_garden][:dishes].map{|name| name[:name]}
+    dish_names = stores[:olive_garden][:dishes].map do |name| 
+      name[:name]
     dish_hash = stores[:olive_garden][:dishes].map
     olive_garden_menu = dish_names.zip(dish_hash).to_h
     
@@ -143,7 +144,9 @@ RSpec.describe 'Advanced Nested Collections' do
     dish_hash = []
 
     stores.each do |key, value|
-      dish_names << key[:dishes].map{|name| name{:name}}
+      dish_names << key[:dishes].map do |name| 
+        name[:name]
+      end
       dish_hash << key[:dishes].map
     end
 
