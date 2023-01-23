@@ -1,5 +1,5 @@
 class Ferret
-    attr_reader :name
+    attr_accessor :name
 
     def initialize (name = nil)
         @name = name

@@ -1,13 +1,9 @@
 class Horse
-    attr_reader :name
+    attr_accessor :name, :diet
 
     def initialize (name)
         @name = name
         @diet = []
-    end
-
-    def diet
-        @diet
     end
 
     def add_to_diet (food)
