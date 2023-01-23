@@ -45,6 +45,7 @@ RSpec.describe Dragon do
     dragon.eat
     expect(dragon.hungry?).to be true
     dragon.eat
+    expect(dragon.times_eaten).to eq(3)
     expect(dragon.hungry?).to be false
   end
 end
