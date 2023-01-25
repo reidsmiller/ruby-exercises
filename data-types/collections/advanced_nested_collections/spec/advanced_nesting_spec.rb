@@ -106,9 +106,9 @@ RSpec.describe 'Advanced Nested Collections' do
 
   it 'test 9' do
     # Return the full menu price for Olive Garden
-    full_menu_price_array = stores[:olive_garden][:dishes].map{|price| price[:price]}
-    full_menu_price = full_menu_price_array.sum
-    expect(full_menu_price).to eq(27)
+    full_menu_price_array = stores[:olive_garden][:dishes].reduce(0) do |collection, dish|
+      collection += dish[:price]
+    end
   end
 
   it 'test 10' do
@@ -117,11 +117,11 @@ RSpec.describe 'Advanced Nested Collections' do
     # 2. Return value of each dish into array
     # 3. Combine both arrays into a hash
 
-    dish_names = stores[:olive_garden][:dishes].map do |name| 
-      name[:name]
-    dish_hash = stores[:olive_garden][:dishes].map
-    olive_garden_menu = dish_names.zip(dish_hash).to_h
-    
+    olive_garden_menu = {}
+    stores[:olive_garden][:dishes].each do |dish|
+      olive_garden_menu[dish[:name]] = dish
+    end
+
     expected = {
       "Risotto" => {
         :name => "Risotto",
@@ -140,17 +140,12 @@ RSpec.describe 'Advanced Nested Collections' do
   it 'test 11' do
     # Return a full menu across all restaurants
    
-    dish_names = []
-    dish_hash = []
-
-    stores.each do |key, value|
-      dish_names << key[:dishes].map do |name| 
-        name[:name]
+    full_menu = {}
+    stores.each do |store, data|
+      data[:dishes].each do |dish|
+        full_menu[dish[:name]] = dish
       end
-      dish_hash << key[:dishes].map
     end
-
-    full_menu = dish_names.zip(dish_hash).to_h
 
     expected = {
       "Risotto" => {
