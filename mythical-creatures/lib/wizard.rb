@@ -16,11 +16,8 @@ class Wizard
     end
 
     def rested?
-        if @spells_cast >= 3
-            false
-        else
-            true
-        end
+        return false if @spells_cast >= 3
+        true
     end
 
     def cast
